@@ -1,9 +1,12 @@
 import React from "react";
-import TodoHeader from "./Components/todoHeader";
+import TodoBG from "./Components/todoBackground";
+import TodoContainer from "./Components/todoContainer";
+
 function App() {
   return (
     <>
-      <TodoHeader />
+      <TodoBG />
+      <TodoContainer />
     </>
   );
 }
