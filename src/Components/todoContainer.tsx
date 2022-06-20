@@ -1,4 +1,5 @@
 import TodoHeader from "./todoHeader";
+import AddNewTodoItem from "./addNewTodo";
 import styled from "styled-components";
 
 const StyledDiv = styled.div`
@@ -13,6 +14,7 @@ const TodoContainer = () => {
   return (
     <StyledDiv>
       <TodoHeader />
+      <AddNewTodoItem />
     </StyledDiv>
   );
 };
