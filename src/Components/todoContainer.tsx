@@ -1,6 +1,7 @@
 import TodoHeader from "./todoHeader";
 import AddNewTodoItem from "./addNewTodo";
 import styled from "styled-components";
+import TodoList from "./todoList";
 
 const StyledDiv = styled.div`
   display: flex;
@@ -15,6 +16,7 @@ const TodoContainer = () => {
     <StyledDiv>
       <TodoHeader />
       <AddNewTodoItem />
+      <TodoList />
     </StyledDiv>
   );
 };

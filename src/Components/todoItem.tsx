@@ -1,17 +1,15 @@
-interface todoItemProps {
-  todoCheckBox: boolean;
+// interface todoItemProps {
+//   todoCheckBox: boolean;
 
-  todoDescription?: string;
-  newTodo: boolean;
+//   todoDescription?: string;
+//   newTodo: boolean;
+// }
+interface todoItemProps {
+  todoItem: string;
 }
 
-const TodoItem = (todoItem: todoItemProps) => {
-  return (
-    <li>
-      {" "}
-      <input type="checkbox" />
-    </li>
-  );
+const TodoItem = (item: todoItemProps) => {
+  return <li>{item.todoItem}</li>;
 };
 
 export default TodoItem;
