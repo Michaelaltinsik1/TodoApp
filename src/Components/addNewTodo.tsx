@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useAppDispatch } from "../App/hooks";
 import { addItem } from "../features/todoListState/todoListSlice";
+import ArticleTodo from "./ArticleTodo";
 const AddNewTodoItem = () => {
   const dispatch = useAppDispatch();
   const [checked, setChecked] = useState<boolean>(false);
@@ -17,6 +18,7 @@ const AddNewTodoItem = () => {
     }
   };
   return (
+    // <ArticleTodo todoProps={{ todoItem: item.todoItem, todoRemove: true }}/>
     <div>
       {" "}
       <input type="checkbox" checked={checked} onChange={validateTodo} />

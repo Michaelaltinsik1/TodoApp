@@ -7,11 +7,11 @@ const TodoList = () => {
   let items = useAppSelector<any>((state) => state.todoList.todoList);
   console.log("TodoList: " + items);
   return (
-    <ul>
+    <section>
       {items.map((item: string, index: number) => (
         <TodoItem key={id + index} todoItem={item} />
       ))}
-    </ul>
+    </section>
   );
 };
 
