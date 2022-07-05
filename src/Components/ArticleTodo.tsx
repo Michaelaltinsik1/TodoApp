@@ -16,6 +16,7 @@ const StyledArticle = styled.article`
     border: none;
     display: flex;
     align-items: center;
+    cursor: pointer;
   }
   p {
     align-self: center;

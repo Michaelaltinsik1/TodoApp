@@ -7,8 +7,6 @@ interface todoItemProps {
 }
 
 const TodoItem = ({ item }: todoItemProps) => {
-  console.log("item: ", item.item);
-  console.log("item: ", item.id);
   return (
     <ArticleTodo
       todoProps={{

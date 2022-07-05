@@ -1,8 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-// import TodoList from "../../Components/todoList";
 
 interface todoItemType {
-  // todoList: string[];
   todoList: { item: string; id: string }[];
 }
 const initialState: todoItemType = {
