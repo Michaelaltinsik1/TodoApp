@@ -1,18 +1,19 @@
-import { useId } from "react";
 import { useAppSelector } from "../App/hooks";
 import TodoItem from "./todoItem";
-
+import { todoItemsType } from "../interfaces";
+interface types {
+  item: string;
+  id: string;
+}
 const TodoList = () => {
-  const id = useId();
-  let items = useAppSelector<any>((state) => state.todoList.todoList);
-  console.log("TodoList: " + items);
+  let items = useAppSelector<todoItemsType>((state) => state.todoList);
+  console.log(items.todoList);
   return (
     <section>
-      {items.map((item: string, index: number) => (
-        <TodoItem key={id + index} todoItem={item} />
+      {items.todoList.map(({ item, id }: types) => (
+        <TodoItem key={id} item={{ item: item, id: id }} />
       ))}
     </section>
   );
 };
-
 export default TodoList;
