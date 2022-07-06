@@ -10,15 +10,10 @@ enum deviceTypes {
 interface types {
   item: string;
   id: string;
+  isCompleted: boolean;
 }
 const TodoList = () => {
   let items = useAppSelector<todoItemsType>((state) => state.todoList);
-  // const [active, setActive] = useState();
-  // const [completed, completed] = useState();
-  // const [windowWidth, setWindowWidth] = useState<number>(0);
-  // useEffect(() => {
-  //   setWindowWidth(window.innerWidth);
-  // }, []);
   const [windowSize, setWindowSize] = useState(getWindowSize());
   useEffect(() => {
     function handleWindowResize() {
@@ -34,11 +29,13 @@ const TodoList = () => {
   function getWindowSize() {
     return window.innerWidth;
   }
-  console.log(windowSize);
   return (
     <section>
-      {items.todoList.map(({ item, id }: types) => (
-        <TodoItem key={id} item={{ item: item, id: id }} />
+      {items.todoList.map(({ item, id, isCompleted }: types) => (
+        <TodoItem
+          key={id}
+          item={{ item: item, id: id, isCompleted: isCompleted }}
+        />
       ))}
 
       <TodoFooter

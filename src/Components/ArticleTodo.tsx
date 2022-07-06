@@ -1,5 +1,8 @@
 import styled from "styled-components";
-import { removeItem } from "../features/todoListState/todoListSlice";
+import {
+  removeItem,
+  toogleIsCompleted,
+} from "../features/todoListState/todoListSlice";
 import { useAppDispatch } from "../App/hooks";
 import removeButton from "../images/icon-cross.svg";
 import checkedImg from "../images/icon-check.svg";
@@ -46,6 +49,7 @@ interface todoPropsType {
   todoProps: {
     todoItem: string;
     id: string;
+    isCompleted: boolean;
     todoRemove?: boolean;
   };
 }
@@ -56,6 +60,7 @@ const ArticleTodo = ({ todoProps }: todoPropsType) => {
 
   const toogleCheckBoxState = () => {
     setCheckBoxState(() => !isCheckBoxStateActive);
+    dispatch(toogleIsCompleted(todoProps.id));
   };
   const deleteTodo = (id: string) => {
     dispatch(removeItem(id));
