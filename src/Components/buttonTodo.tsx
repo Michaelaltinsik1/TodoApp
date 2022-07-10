@@ -8,7 +8,10 @@ const StyledButton = styled.button`
   font-size: 16px;
 `;
 interface buttonProps {
-  text: string;
+  text: {
+    text: string;
+    handleFilterButtonClick?: Function;
+  };
 }
 enum handleEventKey {
   ShowAll = "all",
@@ -19,17 +22,23 @@ enum handleEventKey {
 const ButtonTodo = ({ text }: buttonProps) => {
   const dispatch = useAppDispatch();
   const handleClick = () => {
-    if (text.toLowerCase() === handleEventKey.ClearCompleted) {
+    if (text.text.toLowerCase() === handleEventKey.ClearCompleted) {
       dispatch(clearCompleted());
-    } else if (text.toLowerCase() === handleEventKey.ShowAll) {
-      console.log("All");
-    } else if (text.toLowerCase() === handleEventKey.ShowActive) {
-      console.log("Active");
+    } else if (
+      text.text.toLowerCase() === handleEventKey.ShowAll &&
+      text.handleFilterButtonClick
+    ) {
+      text.handleFilterButtonClick(text.text);
+    } else if (
+      text.text.toLowerCase() === handleEventKey.ShowActive &&
+      text.handleFilterButtonClick
+    ) {
+      text.handleFilterButtonClick(text.text);
     } else {
-      console.log("Completed");
+      if (text.handleFilterButtonClick) text.handleFilterButtonClick(text.text);
     }
   };
-  return <StyledButton onClick={handleClick}>{text}</StyledButton>;
+  return <StyledButton onClick={handleClick}>{text.text}</StyledButton>;
 };
 
 export default ButtonTodo;

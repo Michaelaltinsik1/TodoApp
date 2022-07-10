@@ -7,7 +7,10 @@ enum deviceTypes {
 }
 
 interface deviceProps {
-  device: deviceTypes;
+  device: {
+    device: deviceTypes;
+    handleFilterButtonClick: Function;
+  };
 }
 enum showState {
   All = "All",
@@ -15,6 +18,8 @@ enum showState {
   Completed = "Completed",
 }
 const TodoFooter = ({ device }: deviceProps) => {
+  console.log("Device: ", device.device);
+  // console.log("Function: ", handleFilterButtonClick);
   let items = useAppSelector<todoItemsType>((state) => state.todoList);
 
   const getCompleted = () => {
@@ -28,8 +33,9 @@ const TodoFooter = ({ device }: deviceProps) => {
   };
   return (
     <>
-      {!!device && (
+      {!!device.device && (
         <article style={{ display: "flex", flexDirection: "column" }}>
+          {/* <button onClick={() => handleFilterButtonClick("all")}>All</button> */}
           <div
             style={{
               display: "flex",
@@ -40,7 +46,7 @@ const TodoFooter = ({ device }: deviceProps) => {
             <p style={{ fontSize: "16px" }}>
               {getActiveLength() + " items left"}{" "}
             </p>
-            <ButtonTodo text={"Clear Completed"} />
+            <ButtonTodo text={{ text: "Clear Completed" }} />
           </div>
           <div
             style={{
@@ -49,21 +55,53 @@ const TodoFooter = ({ device }: deviceProps) => {
               padding: "0.8rem 1.8rem",
             }}
           >
-            <ButtonTodo text={"All"} />
-            <ButtonTodo text={"Active"} />
-            <ButtonTodo text={"Completed"} />
+            <ButtonTodo
+              text={{
+                text: "All",
+                handleFilterButtonClick: device.handleFilterButtonClick,
+              }}
+            />
+            <ButtonTodo
+              text={{
+                text: "Active",
+                handleFilterButtonClick: device.handleFilterButtonClick,
+              }}
+            />
+            <ButtonTodo
+              text={{
+                text: "Completed",
+                handleFilterButtonClick: device.handleFilterButtonClick,
+              }}
+            />
           </div>
         </article>
       )}
-      {!device && (
+      {!device.device && (
         <article style={{ display: "flex", justifyContent: "space-around" }}>
-          <ButtonTodo text={"5 items left"} />
+          <p style={{ fontSize: "16px" }}>
+            {getActiveLength() + " items left"}{" "}
+          </p>
           <div>
-            <ButtonTodo text={"Clear Completed"} />
-            <ButtonTodo text={"All"} />
-            <ButtonTodo text={"Active"} />
+            <ButtonTodo text={{ text: "Clear Completed" }} />
+            <ButtonTodo
+              text={{
+                text: "All",
+                handleFilterButtonClick: device.handleFilterButtonClick,
+              }}
+            />
+            <ButtonTodo
+              text={{
+                text: "Active",
+                handleFilterButtonClick: device.handleFilterButtonClick,
+              }}
+            />
           </div>
-          <ButtonTodo text={"Completed"} />
+          <ButtonTodo
+            text={{
+              text: "Completed",
+              handleFilterButtonClick: device.handleFilterButtonClick,
+            }}
+          />
         </article>
       )}
     </>
