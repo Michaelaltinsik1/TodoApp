@@ -19,9 +19,10 @@ interface types {
 }
 const TodoList = () => {
   let items = useAppSelector<todoItemsType>((state) => state.todoList);
-  // let [currTodos, setCurrTodos] = useState<any>([]);
+  let [currTodos, setCurrTodos] = useState(items.todoList);
 
   const [windowSize, setWindowSize] = useState(getWindowSize());
+
   useEffect(() => {
     function handleWindowResize() {
       setWindowSize(getWindowSize());
@@ -34,28 +35,41 @@ const TodoList = () => {
     };
   }, []);
 
+  useEffect(() => {
+    handleFilterButtonClick("All");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [items]);
   function getWindowSize() {
     return window.innerWidth;
   }
 
   const handleFilterButtonClick = (text: string) => {
     if (text.toLowerCase() === filterTypes.ShowAll) {
-      console.log(text + " handlefunction1");
+      setCurrTodos((currTodos = items.todoList));
     } else if (text.toLowerCase() === filterTypes.ShowActive) {
-      console.log(text + " handlefunction2");
+      setCurrTodos(
+        (currTodos = items.todoList.filter(
+          (item: { item: string; id: string; isCompleted: boolean }) =>
+            !item.isCompleted
+        ))
+      );
     } else {
-      console.log(text + " handlefunction3");
+      setCurrTodos(
+        (currTodos = items.todoList.filter(
+          (item: { item: string; id: string; isCompleted: boolean }) =>
+            item.isCompleted
+        ))
+      );
     }
   };
   return (
     <section>
-      {items.todoList.map(({ item, id, isCompleted }: types) => (
+      {currTodos.map(({ item, id, isCompleted }: types) => (
         <TodoItem
           key={id}
           item={{ item: item, id: id, isCompleted: isCompleted }}
         />
       ))}
-
       <TodoFooter
         device={{
           device: windowSize > 700 ? deviceTypes.Desktop : deviceTypes.Mobile,

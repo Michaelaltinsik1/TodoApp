@@ -55,8 +55,11 @@ interface todoPropsType {
 }
 
 const ArticleTodo = ({ todoProps }: todoPropsType) => {
+  console.log(todoProps.isCompleted);
   const dispatch = useAppDispatch();
-  const [isCheckBoxStateActive, setCheckBoxState] = useState(false);
+  const [isCheckBoxStateActive, setCheckBoxState] = useState(
+    todoProps.isCompleted
+  );
 
   const toogleCheckBoxState = () => {
     setCheckBoxState(() => !isCheckBoxStateActive);
@@ -70,7 +73,9 @@ const ArticleTodo = ({ todoProps }: todoPropsType) => {
       <input
         type="checkbox"
         className="checkMark"
+        checked={isCheckBoxStateActive}
         onClick={toogleCheckBoxState}
+        readOnly
       />
       <p className={isCheckBoxStateActive ? "completed" : ""}>
         {todoProps.todoItem}

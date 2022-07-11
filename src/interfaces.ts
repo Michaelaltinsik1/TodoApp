@@ -4,6 +4,7 @@ export interface todoItemsType {
 }
 
 export interface todoItemType {
+  isCompleted: any;
   // todoList: string[];
   todoList: { item: string; id: string; isCompleted: boolean };
 }

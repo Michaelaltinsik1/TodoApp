@@ -2,7 +2,7 @@ import { useAppSelector } from "../App/hooks";
 import darkThemeMobileImg from "../images/bg-mobile-dark.jpg";
 import lightThemeMobileImg from "../images/bg-mobile-light.jpg";
 import styled from "styled-components";
-/* background-image: url(${props => props.theme === themeTypes.DARKTHEME ? }); */
+
 enum themeTypes {
   LIGHTTHEME = "LIGHTTHEME",
   DARKTHEME = "DARKTHEME",
@@ -15,10 +15,10 @@ const ThemeImg = styled.img<themeState>`
   height: 220px;
   background-size: cover;
   background-repeat: no-repeat;
-  background-image: url(${(props: themeState) =>
+  ${(props: themeState) =>
     props.currTheme === themeTypes.DARKTHEME
-      ? darkThemeMobileImg
-      : lightThemeMobileImg});
+      ? `background-image: url(${darkThemeMobileImg});`
+      : `background-image: url(${lightThemeMobileImg});`}
 `;
 const TodoHeader = () => {
   let theme = useAppSelector<themeTypes>((state) => state.theme.currTheme);

@@ -54,7 +54,6 @@ const AddNewTodoItem = () => {
     }
   };
   return (
-    // <ArticleTodo todoProps={{ todoItem: item.todoItem, todoRemove: true }}/>
     <StyledArticle>
       {" "}
       <input
@@ -69,6 +68,11 @@ const AddNewTodoItem = () => {
         value={inputInfo}
         className="input-text"
         onChange={(e) => setInputInfo(e.target.value)}
+        onKeyUp={(e) => {
+          if (e.key === "Enter") {
+            validateTodo();
+          }
+        }}
       />
     </StyledArticle>
   );

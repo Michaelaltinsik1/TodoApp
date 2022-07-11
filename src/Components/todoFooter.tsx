@@ -12,19 +12,9 @@ interface deviceProps {
     handleFilterButtonClick: Function;
   };
 }
-enum showState {
-  All = "All",
-  Active = "Active",
-  Completed = "Completed",
-}
 const TodoFooter = ({ device }: deviceProps) => {
-  console.log("Device: ", device.device);
-  // console.log("Function: ", handleFilterButtonClick);
   let items = useAppSelector<todoItemsType>((state) => state.todoList);
 
-  const getCompleted = () => {
-    return items.todoList.filter((item) => item.isCompleted);
-  };
   const getActive = () => {
     return items.todoList.filter((item) => !item.isCompleted);
   };
@@ -35,7 +25,6 @@ const TodoFooter = ({ device }: deviceProps) => {
     <>
       {!!device.device && (
         <article style={{ display: "flex", flexDirection: "column" }}>
-          {/* <button onClick={() => handleFilterButtonClick("all")}>All</button> */}
           <div
             style={{
               display: "flex",
