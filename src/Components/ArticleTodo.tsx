@@ -3,17 +3,33 @@ import {
   removeItem,
   toogleIsCompleted,
 } from "../features/todoListState/todoListSlice";
-import { useAppDispatch } from "../App/hooks";
+import { useAppDispatch, useAppSelector } from "../App/hooks";
 import removeButton from "../images/icon-cross.svg";
 import checkedImg from "../images/icon-check.svg";
 import { useState } from "react";
-const StyledArticle = styled.article`
+import { themeTypes } from "../interfaces";
+import {
+  LightThemeVeryLightGrayishBlue,
+  LightThemeVeryDarkGrayishBlue,
+  DarkThemeVeryDarkDesaturatedBlue,
+  DarkThemeLightGrayishBlue,
+} from "../styles/styles";
+
+interface articleProps {
+  theme: themeTypes;
+}
+
+const StyledArticle = styled.article<articleProps>`
   display: flex;
   justify-content: space-between;
   padding: 0rem 1rem;
-  background-color: white;
+  /* background-color: white; */
   border-radius: 0.25rem;
   border-bottom: 1px solid gray;
+  background-color: ${(props: articleProps) =>
+    props.theme === themeTypes.DARKTHEME
+      ? DarkThemeVeryDarkDesaturatedBlue
+      : LightThemeVeryLightGrayishBlue};
   button {
     background-color: transparent;
     border: none;
@@ -23,6 +39,10 @@ const StyledArticle = styled.article`
   }
   p {
     align-self: center;
+    color: ${(props: articleProps) =>
+      props.theme === themeTypes.DARKTHEME
+        ? DarkThemeLightGrayishBlue
+        : LightThemeVeryDarkGrayishBlue};
   }
   .completed {
     text-decoration: line-through;
@@ -38,6 +58,10 @@ const StyledArticle = styled.article`
     outline: none;
     cursor: pointer;
     border: 2px solid #7e3ff2;
+    background-color: ${(props: articleProps) =>
+      props.theme === themeTypes.DARKTHEME
+        ? DarkThemeVeryDarkDesaturatedBlue
+        : LightThemeVeryLightGrayishBlue};
   }
   .checkMark:checked {
     background: url(${checkedImg});
@@ -55,6 +79,8 @@ interface todoPropsType {
 }
 
 const ArticleTodo = ({ todoProps }: todoPropsType) => {
+  const theme = useAppSelector<themeTypes>((state) => state.theme.currTheme);
+  console.log(theme);
   console.log(todoProps.isCompleted);
   const dispatch = useAppDispatch();
   const [isCheckBoxStateActive, setCheckBoxState] = useState(
@@ -69,7 +95,7 @@ const ArticleTodo = ({ todoProps }: todoPropsType) => {
     dispatch(removeItem(id));
   };
   return (
-    <StyledArticle>
+    <StyledArticle theme={theme}>
       <input
         type="checkbox"
         className="checkMark"

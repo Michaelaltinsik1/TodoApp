@@ -8,3 +8,8 @@ export interface todoItemType {
   // todoList: string[];
   todoList: { item: string; id: string; isCompleted: boolean };
 }
+
+export enum themeTypes {
+  LIGHTTHEME = "LIGHTTHEME",
+  DARKTHEME = "DARKTHEME",
+}
