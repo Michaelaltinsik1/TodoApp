@@ -6,6 +6,7 @@ import {
   LightThemeVeryDarkGrayishBlue,
   DarkThemeLightGrayishBlue,
 } from "../styles/styles";
+import { useState } from "react";
 enum deviceTypes {
   Desktop,
   Mobile,
@@ -30,6 +31,7 @@ const StyledParagraph = styled.p<paragraphStyledProps>`
 `;
 
 const TodoFooter = ({ device }: deviceProps) => {
+  const [currTodoItemFilter, setTodoFilter] = useState("All");
   let items = useAppSelector<todoItemsType>((state) => state.todoList);
   const theme = useAppSelector<themeTypes>((state) => state.theme.currTheme);
   const getActive = () => {
@@ -37,6 +39,9 @@ const TodoFooter = ({ device }: deviceProps) => {
   };
   const getActiveLength = () => {
     return getActive().length;
+  };
+  const modifyTodoFilter = (text: string) => {
+    setTodoFilter(text);
   };
   return (
     <>
@@ -69,18 +74,24 @@ const TodoFooter = ({ device }: deviceProps) => {
             <ButtonTodo
               text={{
                 text: "All",
+                currTodoItemFilter: currTodoItemFilter,
+                modifyTodoFilter: modifyTodoFilter,
                 handleFilterButtonClick: device.handleFilterButtonClick,
               }}
             />
             <ButtonTodo
               text={{
                 text: "Active",
+                currTodoItemFilter: currTodoItemFilter,
+                modifyTodoFilter: modifyTodoFilter,
                 handleFilterButtonClick: device.handleFilterButtonClick,
               }}
             />
             <ButtonTodo
               text={{
                 text: "Completed",
+                currTodoItemFilter: currTodoItemFilter,
+                modifyTodoFilter: modifyTodoFilter,
                 handleFilterButtonClick: device.handleFilterButtonClick,
               }}
             />
@@ -102,12 +113,16 @@ const TodoFooter = ({ device }: deviceProps) => {
             <ButtonTodo
               text={{
                 text: "All",
+                currTodoItemFilter: currTodoItemFilter,
+                modifyTodoFilter: modifyTodoFilter,
                 handleFilterButtonClick: device.handleFilterButtonClick,
               }}
             />
             <ButtonTodo
               text={{
                 text: "Active",
+                currTodoItemFilter: currTodoItemFilter,
+                modifyTodoFilter: modifyTodoFilter,
                 handleFilterButtonClick: device.handleFilterButtonClick,
               }}
             />
@@ -115,6 +130,8 @@ const TodoFooter = ({ device }: deviceProps) => {
           <ButtonTodo
             text={{
               text: "Completed",
+              currTodoItemFilter: currTodoItemFilter,
+              modifyTodoFilter: modifyTodoFilter,
               handleFilterButtonClick: device.handleFilterButtonClick,
             }}
           />
