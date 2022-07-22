@@ -1,11 +1,23 @@
 import styled from "styled-components";
 import { clearCompleted } from "../features/todoListState/todoListSlice";
-import { useAppDispatch } from "../App/hooks";
-const StyledButton = styled.button`
+import { useAppDispatch, useAppSelector } from "../App/hooks";
+import { themeTypes } from "../interfaces";
+import {
+  LightThemeVeryDarkGrayishBlue,
+  DarkThemeLightGrayishBlue,
+} from "../styles/styles";
+interface buttonStyleProps {
+  theme: themeTypes;
+}
+const StyledButton = styled.button<buttonStyleProps>`
   background-color: transparent;
   padding: 0.5rem;
   border: none;
   font-size: 16px;
+  color: ${(props: buttonStyleProps) =>
+    props.theme === themeTypes.DARKTHEME
+      ? DarkThemeLightGrayishBlue
+      : LightThemeVeryDarkGrayishBlue};
 `;
 interface buttonProps {
   text: {
@@ -21,6 +33,7 @@ enum handleEventKey {
 }
 const ButtonTodo = ({ text }: buttonProps) => {
   const dispatch = useAppDispatch();
+  const theme = useAppSelector<themeTypes>((state) => state.theme.currTheme);
   const handleClick = () => {
     if (text.text.toLowerCase() === handleEventKey.ClearCompleted) {
       dispatch(clearCompleted());
@@ -38,7 +51,11 @@ const ButtonTodo = ({ text }: buttonProps) => {
       if (text.handleFilterButtonClick) text.handleFilterButtonClick(text.text);
     }
   };
-  return <StyledButton onClick={handleClick}>{text.text}</StyledButton>;
+  return (
+    <StyledButton theme={theme} onClick={handleClick}>
+      {text.text}
+    </StyledButton>
+  );
 };
 
 export default ButtonTodo;

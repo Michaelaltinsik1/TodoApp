@@ -9,6 +9,7 @@ const StyledDiv = styled.div`
   margin: 0 auto;
   margin-top: -12rem;
   padding: 1.5rem;
+  max-width: 800px;
 `;
 
 const TodoContainer = () => {

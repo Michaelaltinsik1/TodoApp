@@ -1,20 +1,37 @@
-import { todoItemsType } from "../interfaces";
+import { themeTypes, todoItemsType } from "../interfaces";
 import { useAppSelector } from "../App/hooks";
+import styled from "styled-components";
 import ButtonTodo from "./buttonTodo";
+import {
+  LightThemeVeryDarkGrayishBlue,
+  DarkThemeLightGrayishBlue,
+} from "../styles/styles";
 enum deviceTypes {
   Desktop,
   Mobile,
 }
 
+interface paragraphStyledProps {
+  theme: themeTypes;
+}
 interface deviceProps {
   device: {
     device: deviceTypes;
     handleFilterButtonClick: Function;
   };
 }
+
+const StyledParagraph = styled.p<paragraphStyledProps>`
+  font-size: 16px;
+  color: ${(props: paragraphStyledProps) =>
+    props.theme === themeTypes.DARKTHEME
+      ? DarkThemeLightGrayishBlue
+      : LightThemeVeryDarkGrayishBlue};
+`;
+
 const TodoFooter = ({ device }: deviceProps) => {
   let items = useAppSelector<todoItemsType>((state) => state.todoList);
-
+  const theme = useAppSelector<themeTypes>((state) => state.theme.currTheme);
   const getActive = () => {
     return items.todoList.filter((item) => !item.isCompleted);
   };
@@ -24,7 +41,12 @@ const TodoFooter = ({ device }: deviceProps) => {
   return (
     <>
       {!!device.device && (
-        <article style={{ display: "flex", flexDirection: "column" }}>
+        <article
+          style={{
+            display: "flex",
+            flexDirection: "column",
+          }}
+        >
           <div
             style={{
               display: "flex",
@@ -32,9 +54,9 @@ const TodoFooter = ({ device }: deviceProps) => {
               padding: "0.8rem 1.8rem",
             }}
           >
-            <p style={{ fontSize: "16px" }}>
+            <StyledParagraph theme={theme}>
               {getActiveLength() + " items left"}{" "}
-            </p>
+            </StyledParagraph>
             <ButtonTodo text={{ text: "Clear Completed" }} />
           </div>
           <div
@@ -66,7 +88,12 @@ const TodoFooter = ({ device }: deviceProps) => {
         </article>
       )}
       {!device.device && (
-        <article style={{ display: "flex", justifyContent: "space-around" }}>
+        <article
+          style={{
+            display: "flex",
+            justifyContent: "space-around",
+          }}
+        >
           <p style={{ fontSize: "16px" }}>
             {getActiveLength() + " items left"}{" "}
           </p>
